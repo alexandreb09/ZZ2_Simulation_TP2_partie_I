@@ -19,7 +19,7 @@ void simuler(int duree_sim, int duree_entre_2_cl, int duree_traitement_cl_m1, in
 
 	int date_courante = 0;
 
-	while (date_courante <= 990) {
+	while (date_courante <= duree_sim) {
 		/* Recherche DPE la plus petite */
 		int P = getProchainEven(serveur1, serveur2, entree);					// Si PDE entree plus petite	
 
@@ -30,21 +30,6 @@ void simuler(int duree_sim, int duree_entre_2_cl, int duree_traitement_cl_m1, in
 				break;
 			default: gererMachine2(file_m2, serveur1, serveur2, sortie, date_courante);
 				break;
-		}
-	}
-
-
-	while (date_courante <= 1010) {
-		/* Recherche DPE la plus petite */
-		int P = getProchainEven(serveur1, serveur2, entree);					// Si PDE entree plus petite	
-
-		switch (P) {
-		case 1: gererEntrer(file_m1, serveur1, entree, date_courante, sortie);
-			break;
-		case 2: gererMachine1(file_m1, file_m2, serveur1, serveur2, entree, date_courante);
-			break;
-		default: gererMachine2(file_m2, serveur1, serveur2, sortie, date_courante);
-			break;
 		}
 	}
 	
