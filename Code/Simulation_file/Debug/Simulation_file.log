@@ -1,0 +1,4 @@
+﻿  simulation.cpp
+  AssemblyInfo.obj : /DEBUG:FASTLINK n'est pas pris en charge en présence de code managé ; redémarrage de l'édition des liens avec /DEBUG:FULL
+  Simulation_file.vcxproj -> C:\TP\Simulation_file\Debug\Simulation_file.exe
+  Simulation_file.vcxproj -> C:\TP\Simulation_file\Debug\Simulation_file.pdb (Partial PDB)
