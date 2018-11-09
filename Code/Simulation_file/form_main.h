@@ -55,6 +55,7 @@ namespace Simulation_file {
 
 
 
+
 	protected:
 
 	private:
@@ -70,9 +71,9 @@ namespace Simulation_file {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^  chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^  legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^  series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^  chartArea3 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^  legend3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^  series3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(form_main::typeid));
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
@@ -128,6 +129,7 @@ namespace Simulation_file {
 			this->richTextBox1->Size = System::Drawing::Size(373, 283);
 			this->richTextBox1->TabIndex = 3;
 			this->richTextBox1->Text = L"";
+			this->richTextBox1->TextChanged += gcnew System::EventHandler(this, &form_main::richTextBox1_TextChanged);
 			// 
 			// label2
 			// 
@@ -167,24 +169,24 @@ namespace Simulation_file {
 			// 
 			// chart1
 			// 
-			chartArea1->Name = L"ChartArea1";
-			this->chart1->ChartAreas->Add(chartArea1);
+			chartArea3->Name = L"ChartArea1";
+			this->chart1->ChartAreas->Add(chartArea3);
 			this->chart1->Cursor = System::Windows::Forms::Cursors::Arrow;
-			legend1->Name = L"Legend1";
-			this->chart1->Legends->Add(legend1);
+			legend3->Name = L"Legend1";
+			this->chart1->Legends->Add(legend3);
 			this->chart1->Location = System::Drawing::Point(33, 380);
 			this->chart1->Margin = System::Windows::Forms::Padding(4);
 			this->chart1->Name = L"chart1";
-			series1->BackSecondaryColor = System::Drawing::Color::Maroon;
-			series1->BorderColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
+			series3->BackSecondaryColor = System::Drawing::Color::Maroon;
+			series3->BorderColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			series1->ChartArea = L"ChartArea1";
-			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
-			series1->Color = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+			series3->ChartArea = L"ChartArea1";
+			series3->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Line;
+			series3->Color = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
 				static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			series1->Legend = L"Legend1";
-			series1->Name = L"Series1";
-			this->chart1->Series->Add(series1);
+			series3->Legend = L"Legend1";
+			series3->Name = L"Series1";
+			this->chart1->Series->Add(series3);
 			this->chart1->Size = System::Drawing::Size(399, 369);
 			this->chart1->TabIndex = 11;
 			this->chart1->Text = L"chart1";
@@ -268,5 +270,9 @@ namespace Simulation_file {
 
 		
 	}
+private: System::Void richTextBox1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+}
+private: System::Void label4_Click(System::Object^  sender, System::EventArgs^  e) {
+}
 };
 }

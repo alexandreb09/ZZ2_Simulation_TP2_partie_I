@@ -27,3 +27,18 @@ int Client::getDate_sortie_syst() {
 void Client::setDate_sortie_syst(int n_dss) {
 	date_sortie_syst = n_dss;
 };
+
+int Client::getDate_entree_machine_1() {
+	return date_entree_machine_1;
+}
+void Client::setDate_entree_machine_1(int dem1) {
+	date_entree_machine_1 = dem1;
+}
+
+int Client::getDate_entree_machine_2() {
+	return date_entree_machine_2;
+}
+void Client::setDate_entree_machine_2(int dem2) {
+	date_entree_machine_2 = dem2;
+}
+

@@ -27,6 +27,8 @@ void simuler(int duree_sim, int duree_entre_2_cl, int duree_traitement_cl_m1, in
 
 int getProchainEven(const Machine serveur1, const Machine serveur2, const Entree entree);
 
+float temps_moyen_bloque_m1(Machine machine_2, std::vector<Client> solution);
+float temps_moyen_bloque_m2(Machine machine_2, std::vector<Client> solution);
 bool sortByID(Client &lhs, Client &rhs);
 
 #endif

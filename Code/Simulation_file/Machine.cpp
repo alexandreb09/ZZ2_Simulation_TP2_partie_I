@@ -1,10 +1,10 @@
 #include "Machine.h"
 
 
-Machine::Machine() :Etat(0), date_prochain_event(infini) {
+Machine::Machine() :Etat(0), date_prochain_event(infini),date_entree_etat_bloque(0),duree_etat_bloquee(0) {
 }
 
-Machine::Machine(int Etat, int dpe, int dt) : Etat(Etat), date_prochain_event(dpe), duree_traitement(dt) {
+Machine::Machine(int Etat, int dpe, int dt) : Etat(Etat), date_prochain_event(dpe), duree_traitement(dt),date_entree_etat_bloque(0), duree_etat_bloquee(0) {
 }
 
 int Machine::getEtat() {
@@ -33,4 +33,16 @@ Client Machine::getClient_present() {
 }
 void Machine::setClient_present(Client n_cl) {
 	client_present = n_cl;
+}
+
+
+void Machine::MAJ_duree_etat_bloquee(int date_courante) {
+	duree_etat_bloquee += date_courante - date_entree_etat_bloque;
+}
+int Machine::getDuree_etat_bloquee() {
+	return duree_etat_bloquee;
+}
+
+void Machine::setDate_entree_etat_bloque(int detb) {
+	date_entree_etat_bloque = detb;
 }

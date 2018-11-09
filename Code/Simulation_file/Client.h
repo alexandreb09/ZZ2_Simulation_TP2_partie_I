@@ -6,6 +6,10 @@ class Client {
 	int date_entree_syst;
 	int date_sortie_syst;
 
+	int date_entree_machine_1;
+	int date_entree_machine_2;
+
+
 	public:
 		Client();
 		Client(int id, int des);
@@ -19,4 +23,10 @@ class Client {
 
 		int getDate_sortie_syst();
 		void setDate_sortie_syst(int n_dss);
+		
+		int getDate_entree_machine_1();
+		void setDate_entree_machine_1(int dem1);
+
+		int getDate_entree_machine_2();
+		void setDate_entree_machine_2(int dem2);
 };

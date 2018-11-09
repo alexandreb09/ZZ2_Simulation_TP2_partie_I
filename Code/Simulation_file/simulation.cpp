@@ -33,7 +33,6 @@ void simuler(int duree_sim, int duree_entre_2_cl, int duree_traitement_cl_m1, in
 		}
 	}
 	
-
 	std::ostringstream oss;
 	std::string res;
 
@@ -65,6 +64,9 @@ void simuler(int duree_sim, int duree_entre_2_cl, int duree_traitement_cl_m1, in
 		oss << "id : " << cl.getId() << "   || entree : " << cl.getDate_entree_syst() << "   || sortie : " << cl.getDate_sortie_syst() << "\n";
 	}
 
+	oss << "\n\nNombre moyen client file1 : " << (float) file_m1.getDuree_occupation() / date_courante;
+	oss << "\nNombre moyen client file2 : " << (float)  file_m2.getDuree_occupation() / date_courante;
+	oss << "\n\nTemps moyen mach1 bloquee : " << (float) 100 * serveur1.getDuree_etat_bloquee() / date_courante << "%";
 	res = oss.str();
 	afficherTextbox(res, richTextBox1);
 }
@@ -74,6 +76,7 @@ void gererMachine1(File & file_m1, File &file_m2, Machine &serveur1, Machine &se
 	if (file_m2.test_File_pleine()) {									// Si file m2 pleine
 		serveur1.setEtat(bloque);
 		serveur1.setDPE(infini);
+		serveur1.setDate_entree_etat_bloque(date_courante);
 	}
 	else {
 		Client piece = serveur1.getClient_present();					// La piece sort de la machine 1
@@ -81,10 +84,15 @@ void gererMachine1(File & file_m1, File &file_m2, Machine &serveur1, Machine &se
 			serveur2.setClient_present(piece);							// Et rentre sur la machine 2
 			serveur2.setDPE(date_courante + serveur2.getDuree_traitement());
 			serveur2.setEtat(occupe);
+
+			piece.setDate_entree_machine_2(date_courante);
 		}
 		else {
 			file_m2.ajout_file(piece);
 		}
+		file_m2.MAJDuree_Occupation(date_courante);
+
+
 		if (!file_m1.test_File_Vide()) {
 			Client piece_new;											// Recupération piece file_m1
 			file_m1.suppression_file(piece_new);
@@ -112,12 +120,14 @@ void gererMachine2(File &file_m2, Machine &serveur1, Machine &serveur2, std::vec
 		if (serveur1.getEtat() == bloque) {
 			serveur1.setEtat(occupe);
 			serveur1.setDPE(date_courante);
+			serveur1.MAJ_duree_etat_bloquee(date_courante);
 		}
 	}
 	else {
 		serveur2.setEtat(libre);
 		serveur2.setDPE(infini);
 	}
+	file_m2.MAJDuree_Occupation(date_courante);
 }
 
 
@@ -127,18 +137,21 @@ void gererEntrer(File & file_m1, Machine &serveur1, Entree & entree, int & date_
 	entree.setDernier_numero(entree.getDernier_numero()+1);
 	entree.setDPE(date_courante + entree.getDuree_inter_arrivee());
 	if (file_m1.test_File_pleine()) {
-		cl.setDate_sortie_syst(date_courante);
-		sortie.push_back(cl);
+		// cl.setDate_sortie_syst(date_courante);			// On ne s'occupe pas des clients qui sortent
+		// sortie.push_back(cl);
 	}
 	else {
 		if (libre == serveur1.getEtat()) {
 			serveur1.setEtat(occupe);
 			serveur1.setClient_present(cl);
 			serveur1.setDPE(date_courante + serveur1.getDuree_traitement());
+
+			cl.setDate_entree_machine_1(date_courante);				// Stats
 		}
 		else {
 			file_m1.ajout_file(cl);
 		}
+		file_m1.MAJDuree_Occupation(date_courante);
 	}
 	entree.setDPE(date_courante + entree.getDuree_inter_arrivee());
 }
