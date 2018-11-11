@@ -6,9 +6,8 @@ class Client {
 	int date_entree_syst;
 	int date_sortie_syst;
 
-	int date_entree_machine_1;
-	int date_entree_machine_2;
-
+	int date_entree_machine_1;				// Stats
+	int date_entree_machine_2;				// Stats
 
 	public:
 		Client();

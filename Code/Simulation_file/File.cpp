@@ -1,6 +1,7 @@
 #include "File.h"
+#include "Machine.h"
 
-File::File() :pt_Depart(1), pt_Fin(1), date_event_prec(0), duree_occupation(0), nb_elem(0) {
+File::File() :pt_Depart(1), pt_Fin(1), date_event_prec(0), duree_occupation(0), nb_elem(0), DPE(infini) {
 }
 
 
@@ -63,4 +64,18 @@ int File::getTaille() {
 void File::MAJDuree_Occupation(int date_courante) {
 	duree_occupation += nb_elem*(date_courante - date_event_prec);
 	date_event_prec = date_courante;
+}
+
+int File::getDPE() {
+	return DPE;
+}
+void File::setDPE(int n_dpe) {
+	DPE = n_dpe;
+}
+void File::MAJDPE() {
+	DPE = ListeElements[pt_Depart].getDate_entree_syst() + duree_attente_max;
+}
+
+Client File::getSommet() {
+	return ListeElements[pt_Depart];
 }

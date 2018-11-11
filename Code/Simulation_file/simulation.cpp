@@ -5,10 +5,6 @@ using namespace msclr;
 using namespace msclr::interop;
 using namespace System;
 
-const int libre = 0;
-const int occupe = 1;
-const int bloque = 2;
-
 void simuler(int duree_sim, int duree_entre_2_cl, int duree_traitement_cl_m1, int duree_traitement_cl_m2, System::Windows::Forms::RichTextBox^  richTextBox1, System::Windows::Forms::DataVisualization::Charting::Chart^ chart) {
 	File file_m1;
 	File file_m2;
@@ -21,15 +17,18 @@ void simuler(int duree_sim, int duree_entre_2_cl, int duree_traitement_cl_m1, in
 
 	while (date_courante <= duree_sim) {
 		/* Recherche DPE la plus petite */
-		int P = getProchainEven(serveur1, serveur2, entree);					// Si PDE entree plus petite	
+		int P = getProchainEven(serveur1, serveur2, entree,file_m1);					// Si PDE entree plus petite	
 
 		switch (P){
-			case 1: gererEntrer(file_m1, serveur1, entree, date_courante, sortie);
+			case ENTREE: gererEntrer(file_m1, serveur1, entree, date_courante, sortie);
 				break;
-			case 2: gererMachine1(file_m1, file_m2, serveur1, serveur2, entree, date_courante);
+			case MACHINE1: gererMachine1(file_m1, file_m2, serveur1, serveur2, entree, date_courante);
 				break;
-			default: gererMachine2(file_m2, serveur1, serveur2, sortie, date_courante);
+			case MACHINE2: gererMachine2(file_m2, serveur1, serveur2, sortie, date_courante);
 				break;
+			case FILE1: gererFile1(file_m1, date_courante);
+				break;
+			default: break;
 		}
 	}
 	
@@ -96,6 +95,7 @@ void gererMachine1(File & file_m1, File &file_m2, Machine &serveur1, Machine &se
 		if (!file_m1.test_File_Vide()) {
 			Client piece_new;											// Recupération piece file_m1
 			file_m1.suppression_file(piece_new);
+			file_m1.MAJDPE();
 			serveur1.setClient_present(piece_new);
 			serveur1.setDPE(date_courante + serveur1.getDuree_traitement());
 			serveur1.setEtat(occupe);
@@ -103,6 +103,7 @@ void gererMachine1(File & file_m1, File &file_m2, Machine &serveur1, Machine &se
 		else{
 			serveur1.setEtat(libre);
 			serveur1.setDPE(infini);
+			file_m1.setDPE(infini);
 		}
 	}
 }
@@ -141,29 +142,52 @@ void gererEntrer(File & file_m1, Machine &serveur1, Entree & entree, int & date_
 		// sortie.push_back(cl);
 	}
 	else {
-		if (libre == serveur1.getEtat()) {
+		if (libre == serveur1.getEtat()) {						// Si serveur libre
 			serveur1.setEtat(occupe);
 			serveur1.setClient_present(cl);
 			serveur1.setDPE(date_courante + serveur1.getDuree_traitement());
 
 			cl.setDate_entree_machine_1(date_courante);				// Stats
 		}
-		else {
-			file_m1.ajout_file(cl);
+		else {													// si serveur occupe
+			file_m1.ajout_file(cl);								// Ajout dans la file
+			if (1 == file_m1.getTaille()) {						// Si c'est le premier element
+				file_m1.MAJDPE();								// MAJ DPE file
+			}
 		}
 		file_m1.MAJDuree_Occupation(date_courante);
 	}
 	entree.setDPE(date_courante + entree.getDuree_inter_arrivee());
 }
 
-int getProchainEven(Machine serveur1, Machine serveur2, Entree entree) {
-	int rep = 1; //entree
-	if ((serveur2.getDPE() <= serveur1.getDPE()) & (serveur2.getDPE() <= entree.getDPE())) {
-		rep = 3;
+
+void gererFile1(File & file1, int & date_courante) {
+	date_courante = file1.getDPE();
+	Client client;
+	file1.suppression_file(client);
+	if (file1.test_File_Vide()) {
+		file1.setDPE(infini);
 	}
 	else {
-		if (serveur1.getDPE() <= entree.getDPE()) {
-			rep = 2;
+		file1.MAJDPE();
+	}
+	// oss << "Sortie du client " << client.getId() << " arrivé à la date " << client.getDate_entree_syst() << " et sortie à la date " << date_courante << "\n";
+}
+
+
+int getProchainEven(Machine serveur1, Machine serveur2, Entree entree, File file_m1) {
+	int rep = ENTREE; //entree
+	if ((serveur2.getDPE() <= serveur1.getDPE()) & (serveur2.getDPE() <= file_m1.getDPE()) & (serveur2.getDPE() <= entree.getDPE()) ) {
+		rep = MACHINE2;
+	}
+	else {
+		if (serveur1.getDPE() <= entree.getDPE() & (serveur1.getDPE() <= file_m1.getDPE())) {
+			rep = MACHINE1;
+		}
+		else {
+			if (file_m1.getDPE() <= entree.getDPE()) {
+				rep = FILE1;
+			}
 		}
 	}
 	return rep;

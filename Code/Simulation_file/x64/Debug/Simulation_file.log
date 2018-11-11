@@ -1,3 +1,4 @@
 ﻿  simulation.cpp
+d:\1.cours\isima\zz2\simulation\tp2\exo1\code\simulation_file\simulation.cpp(184): warning C4554: '&' : vérifiez si la priorité des opérateurs n'est pas une cause possible d'erreur ; utilisez des parenthèses pour rendre les priorités plus claires
   AssemblyInfo.obj : module MSIL détecté ; liens incrémentiels désactivés pour MSIL ; édition de liens complète en cours
-  Simulation_file.vcxproj -> D:\1.Cours\ISIMA\ZZ2\Simulation\TP2\Exo1\CODE\x64\Debug\Simulation_file.exe
+  Simulation_file.vcxproj -> D:\1.Cours\ISIMA\ZZ2\Simulation\TP2\Exo1\Code\x64\Debug\Simulation_file.exe
