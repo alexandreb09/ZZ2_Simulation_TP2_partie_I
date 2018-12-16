@@ -1,10 +1,12 @@
 #include "Client.h"
 
-Client::Client() :id(0), date_entree_syst(0) {}
+int Client::nb_cl = 0;
 
-Client::Client(int id, int des) : id(id), date_entree_syst(des) {}
+Client::Client() :id(-1), date_entree_syst(0), date_sortie_syst(-1), date_entree_machine_1(-1), date_entree_machine_2(-1){}
 
-Client::Client(int id, int des, int dss):id(id), date_entree_syst(des), date_sortie_syst(dss) {}
+Client::Client(int des) : id(nb_cl++), date_entree_syst(des), date_sortie_syst(-1), date_entree_machine_1(-1), date_entree_machine_2(-1) {}
+
+Client::Client(int des, int dss):id(nb_cl++), date_entree_syst(des), date_sortie_syst(dss), date_entree_machine_1(-1), date_entree_machine_2(-1) {}
 
 
 int Client::getId() {

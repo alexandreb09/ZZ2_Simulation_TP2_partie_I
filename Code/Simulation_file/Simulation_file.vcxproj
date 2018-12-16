@@ -143,6 +143,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Affichage.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Entree.h" />
     <ClInclude Include="File.h" />
@@ -157,6 +158,7 @@
     <ResourceCompile Include="app.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Affichage.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Entree.cpp" />
     <ClCompile Include="File.cpp" />

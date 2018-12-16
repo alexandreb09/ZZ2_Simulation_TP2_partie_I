@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef FILE
-#define FILE
-
 #include "Client.h"
 
 const int taille_file = 8;
@@ -40,6 +37,3 @@ class File {
 		void File::MAJDPE();
 		Client File::getSommet();
 };
-
-
-#endif

@@ -2,6 +2,7 @@
 
 
 class Client {
+	static int nb_cl;
 	int id;
 	int date_entree_syst;
 	int date_sortie_syst;
@@ -11,8 +12,8 @@ class Client {
 
 	public:
 		Client();
-		Client(int id, int des);
-		Client(int id, int des, int dss);
+		Client(int des);
+		Client(int des, int dss);
 
 		int getId();
 		void setId(int n_id);
