@@ -248,17 +248,13 @@ namespace Simulation_file {
 	}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 		this->richTextBox1->Clear();
-
+		this->chart1->Series[0]->Points->Clear();
 
 		String^ chaineBTN1 = this->textBox1->Text;
 		String^ chaineBTN2 = this->textBox2->Text;
 		String^ chaineBTN3 = this->textBox3->Text;
 		String^ chaineBTN4 = this->textBox4->Text;
 
-		/* this->richTextBox1->AppendText(chaineBTN1);
-		string SNormal1 = msclr::interop::marshal_as<std::string>(chaineBTN1);
-		string SNormal2 = msclr::interop::marshal_as<std::string>(chaineBTN2);
-		*/
 		if (chaineBTN1 != "" && chaineBTN2 != "" && chaineBTN3!="" && chaineBTN4 !="") {
 			int duree_entre_2_cl = System::Convert::ToInt32(chaineBTN1);
 			int duree_sim = System::Convert::ToInt32(chaineBTN2);
